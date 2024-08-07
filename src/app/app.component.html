@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="form-wrapper">
+    <h2>Consumo de Calorías Diarias por Persona</h2>
+    <form nz-form [formGroup]="caloriasFormulario">
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="12">
+
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">Edad</nz-form-label>
+            <nz-form-control [nzSpan]="16">
+              <input nz-input formControlName="edad" type="number" min="16" max="105" placeholder="Ingrese su edad" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">Sistema</nz-form-label>
+            <nz-form-control [nzSpan]="16">
+              <nz-select formControlName="sistema">
+                <nz-option nzValue="decimal" nzLabel="Métrico (kg, cm)"></nz-option>
+                <nz-option nzValue="imperial" nzLabel="Imperial (lb, in)"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">Peso</nz-form-label>
+            <nz-form-control [nzSpan]="16">
+              <nz-input-group nzCompact>
+                <input nz-input formControlName="peso" type="number"
+                  [min]="caloriasFormulario.get('sistema')?.value === 'decimal' ? 40.5 : 89.28722"
+                  [max]="caloriasFormulario.get('sistema')?.value === 'decimal' ? 300 : 661.387"
+                  [placeholder]="caloriasFormulario.get('sistema')?.value === 'decimal' ? 'Ingrese su peso en kilogramos' : 'Ingrese su peso en libras'" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">Altura</nz-form-label>
+            <nz-form-control [nzSpan]="16">
+              <nz-input-group nzCompact>
+                <input nz-input formControlName="altura" type="number"
+                  [min]="caloriasFormulario.get('sistema')?.value === 'decimal' ? 140 : 55.1181"
+                  [max]="caloriasFormulario.get('sistema')?.value === 'decimal' ? 225 : 88.5827"
+                  [placeholder]="caloriasFormulario.get('sistema')?.value=== 'decimal' ? 'Ingrese su altura en centímetros' : 'Ingrese su altura en pulgadas'"
+                  step="0.01" placeholder="Ingrese su altura" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12" class="calorias-resultado">
+          <p *ngIf="calorias !== 0">Debes consumir diariamente {{ calorias | number:'1.3-3' }} calorias</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
